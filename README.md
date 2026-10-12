@@ -46,3 +46,10 @@ All comparisons are total for any pair of 32-bit inputs: equal values are "neith
 Values exactly 2^31 apart are ambiguous. `lessThan(0, 0x80000000)` returns `false`, and so does `lessThan(0x80000000, 0)`. If your window logic needs a total strict order at the midpoint, this library does not provide it on purpose — doing so would contradict RFC 1323. Use the non-strict operators if you need inclusive boundary checks.
 
 Inputs must be integers in `[0, 2^32)` or small negative offsets in `[-2^32, 0)` (the kind JS naturally produces when subtracting two u32 values). Non-integers, `NaN`, `Infinity`, booleans, and strings are rejected. This is stricter than `Math.floor`-style coercion; the goal is to surface caller bugs rather than hide them.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+

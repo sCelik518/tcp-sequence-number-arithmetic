@@ -1,6 +1,6 @@
 {
   "name": "tcp-sequence-number-arithmetic",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Compares and adds TCP sequence numbers using unsigned 32-bit wraparound semantics for window calculations.",
   "type": "module",
   "main": "src/index.js",
